@@ -1,3 +1,5 @@
+const express = require("express");
+const router = express.Router();
 const {
   addBookHandler,
   getAllBooksHandler,
@@ -6,32 +8,10 @@ const {
   deleteBookByIdHandler,
 } = require("./handler");
 
-const routes = [
-  {
-    method: "POST",
-    path: "/books",
-    handler: addBookHandler,
-  },
-  {
-    method: "GET",
-    path: "/books",
-    handler: getAllBooksHandler,
-  },
-  {
-    method: "GET",
-    path: "/books/{id}",
-    handler: getBookByIdHandler,
-  },
-  {
-    method: "PUT",
-    path: "/books/{id}",
-    handler: editBookByIdHandler,
-  },
-  {
-    method: "DELETE",
-    path: "/books/{id}",
-    handler: deleteBookByIdHandler,
-  },
-];
+router.post("/books", addBookHandler);
+router.get("/books", getAllBooksHandler);
+router.get("/books/:id", getBookByIdHandler);
+router.put("/books/:id", editBookByIdHandler);
+router.delete("/books/:id", deleteBookByIdHandler);
 
-module.exports = routes;
+module.exports = router;
