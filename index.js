@@ -1,16 +1,21 @@
-const express = require('express')
-const app = express()
-const PORT = 4000
+const Hapi = require("@hapi/hapi");
+const routes = require("./src/routes");
 
+const init = async () => {
+  const server = Hapi.server({
+    port: 9000,
+    host: "localhost",
+    routes: {
+      cors: {
+        origin: ["*"],
+      },
+    },
+  });
 
-app.get('/home', (req, res) => {
-  res.status(200).json('Welcome, your app is working well');
-})
+  server.route(routes);
 
+  await server.start();
+  console.log(`Server berjalan pada ${server.info.uri}`);
+};
 
-app.listen(PORT, () => {
-  console.log(`Server running at http://localhost:${PORT}`);
-});
-
-// Export the Express API
-module.exports = app
+init();
